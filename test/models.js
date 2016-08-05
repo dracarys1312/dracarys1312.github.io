@@ -1,6 +1,7 @@
 var chai = require('chai');
 var should = chai.should();
 var User = require('../models/user');
+var Product = require('../models/product');
 
 describe('User Model', function() {
     it('should create a new user', function(done) {
@@ -40,6 +41,27 @@ describe('User Model', function() {
     it('should delete a user', function(done) {
         User.remove({
             email: 'test@gmail.com'
+        }, function(err) {
+            if (err) return done(err);
+            done();
+        });
+    });
+});
+
+describe('Product Model', function() {
+    it('should create a new product', function(done) {
+        var product = new Product({
+            name: 'test123456',
+            description: '123456test'
+        });
+        product.save(function(err) {
+            if (err) return done(err);
+            done();
+        })
+    });
+    it('should delete a product', function(done) {
+        Product.remove({
+            name: 'test123456'
         }, function(err) {
             if (err) return done(err);
             done();
