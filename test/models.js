@@ -13,30 +13,30 @@ describe('User Model', function() {
             done();
         })
     });
-    it('should correctly update an existing account', function(done) {
-        var body = {
-            email: 'test1312@gmail.com',
-            password: 'password1312'
-        };
-        var userId = User[1];
-        User
-        .put('/api/v1/users/', userId)
-        .send(body)
-        .expect('Content-Type', /json/)
-        .expect(200) //Status code
-        .end(function(err, res) {
-            if (err) {
-                throw err;
-            }
-            // .put('/api/v1/users/')
-            // Should.js fluent syntax applied
-            // res.body.should.have.property('_id');
-            // res.body.firstName.should.equal('JP');
-            // res.body.lastName.should.equal('Berd');
-            // res.body.creationDate.should.not.equal(null);
-            done();
-        });
-    });
+    // it('should correctly update an existing account', function(done) {
+    //     var body = {
+    //         email: 'test1312@gmail.com',
+    //         password: 'password1312'
+    //     };
+    //     var userId = User[1];
+    //     User
+    //     .put('/api/v1/users/', userId)
+    //     .send(body)
+    //     .expect('Content-Type', /json/)
+    //     .expect(200) //Status code
+    //     .end(function(err, res) {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         // .put('/api/v1/users/')
+    //         // Should.js fluent syntax applied
+    //         // res.body.should.have.property('_id');
+    //         // res.body.firstName.should.equal('JP');
+    //         // res.body.lastName.should.equal('Berd');
+    //         // res.body.creationDate.should.not.equal(null);
+    //         done();
+    //     });
+    // });
     it('should delete a user', function(done) {
         User.remove({
             email: 'test@gmail.com'
