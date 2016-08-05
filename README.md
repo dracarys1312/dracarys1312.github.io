@@ -1,16 +1,22 @@
-Configuration
+### Configuration
+Take a look to the configuration file at `config/default.json`
 
-Take a look to the configuration file at config/default.json
-
-Installation
-
+### Installation
+```
 npm install
-Running
+```
 
+### Running
+```
 node index.js
-Testing
+```
 
+### Testing
+```
 npm test
-Swagger Document
+```
 
+### Swagger Document
+```
 http://localhost:3000
+```
