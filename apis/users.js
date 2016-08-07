@@ -1,6 +1,6 @@
 'use strict';
 var express = require('express'),
-    db = require('../models/user.js'),
+    db = require('../models'),
     logger = require('../helpers/logger'),
     moment = require('moment'),
     config = require('config'),

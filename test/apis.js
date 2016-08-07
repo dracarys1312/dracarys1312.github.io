@@ -17,6 +17,18 @@ describe('POST /', function() {
         .expect(200, done);
     });
 });
+// Here it'll be tested two behaviors when try to find a task by id
+  // describe('GET /api/v1/products/get/:id', function() {
+  //   // Testing how to find a task by id
+  //   it('returns a product by id', function(done) {
+  //     var product = app.db('products').first();
+  //     request.get('/api/v1/products/get/' + product.id)
+  //       .expect(200)
+  //       .end(function(err, res) {
+  //         expect(res.body).to.eql(product);
+  //         done(err);
+  //       });
+  //   })});
 // describe('PUT /', function() {
 //     it('should update a user', function(done) {
 //         request(app)
