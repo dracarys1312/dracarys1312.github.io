@@ -10,6 +10,23 @@
         "level": "debug",
         "handleExceptions": false
     },
+    "redis": {
+        "host": "192.168.0.142",
+        "port": "6379",
+        "password": "123456test",
+        "prefix": "npthao"
+    },
+    "mailer": {
+      "from": "no-reply@example.com",
+      "host": "smtp.mail.com",
+      "secureConnection": true,
+      "port": 465,
+      "transportMethod": "SMTP",
+      "auth": {
+          "user": "mail.user@mail.com",
+          "pass": "userpass"
+      }
+    },
     "unauthorization": [
         "/api/v1/users/login",
         "/api/v1/users/create",

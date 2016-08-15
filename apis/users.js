@@ -4,8 +4,12 @@ var express = require('express'),
     logger = require('../helpers/logger'),
     moment = require('moment'),
     config = require('config'),
+    cache = require('../helpers/cache'),
     crypto = require('crypto'),
+    q = require('../queues'),
     router = express.Router();
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 // create a new user
 router.post('/create', function(req, res) {
@@ -16,6 +20,11 @@ router.post('/create', function(req, res) {
                 error
             }));
         }
+        // send email job to queue message system
+        q.create('email', {
+            title: '[Site Admin] Thank You',
+            to: new_user.email
+        }).priority('high').save();
         // remove security attributes
         new_user = user.toObject();
         if (new_user) {
@@ -30,6 +39,7 @@ router.post('/create', function(req, res) {
 router.put('/update/:id', function(req, res) {
     db.User.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
         if (err) return next(err);
+        cache.del('get_user_by_id' + req.params.id);
         res.json(post);
     });
 });
@@ -37,18 +47,28 @@ router.put('/update/:id', function(req, res) {
 // get a user by id
 router.get('/get/:id', function(req, res) {
     logger.debug('Get User By Id', req.params.id);
-    db.User.findOne({
-        _id: req.params.id
-    }).then(function(user) {
-        // remove security attributes
-        user = user.toObject();
-        if (user) {
-            delete user.hashed_password;
-            delete user.salt;
+    cache.get('get_user_by_id' + req.params.id, function(err, reply) {
+        if (!err && reply) {
+            logger.debug('Get Data From Cache');
+            return res.send(reply);
+        } else {
+            db.User.findOne({
+                _id: req.params.id
+            }).then(function(user) {
+                // remove security attributes
+                user = user.toObject();
+                if (user) {
+                    delete user.hashed_password;
+                    delete user.salt;
+                }
+                // save to cache
+                logger.debug('Save data to cache', req.params.id);
+                cache.set('get_user_by_id' + req.params.id, user.JSON.stringify(user));
+                res.send(JSON.stringify(user));
+            }).catch(function(e) {
+                res.status(500).send(JSON.stringify(e));
+            });
         }
-        res.send(JSON.stringify(user));
-    }).catch(function(e) {
-        res.status(500).send(JSON.stringify(e));
     });
 });
 

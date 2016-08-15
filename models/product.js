@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var logger = require('../helpers/logger');
 var Schema = mongoose.Schema;
-var CreateUpdatedAt = require('mongoose-timestamp');
 
 // Define User Schema
 var Product = new Schema({
@@ -20,6 +19,6 @@ var Product = new Schema({
     }
 });
 
-Product.plugin(CreateUpdatedAt);
+// Product.plugin(CreateUpdatedAt);
 
 module.exports = mongoose.model('Product', Product);
