@@ -7,6 +7,13 @@ var express = require('express'),
     crypto = require('crypto'),
     router = express.Router();
 
+// get listing
+router.get('/', function(req, res, next) {
+  db.User.find(function (err, user) {
+    if (err) return next(err);
+    res.json(user);
+  });
+});
 // create a new user
 router.post('/create', function(req, res) {
     var user = new db.User(req.body);
