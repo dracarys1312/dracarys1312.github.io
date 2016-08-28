@@ -11,15 +11,17 @@ var express = require('express'),
 router.get('/', function(req, res, next) {
   db.User.find(function (err, user) {
     if (err) return next(err);
-  }).then(function(user) {
-        // remove security attributes
-        user = user.toObject();
-        if (user) {
-            delete user.hashed_password;
-            delete user.salt;
-        }
-        res.send(JSON.stringify(user));
-    });
+    res.json(user);
+  })
+//   .then(function(user) {
+//         // remove security attributes
+//         user = user.toObject();
+//         if (user) {
+//             delete user.hashed_password;
+//             delete user.salt;
+//         }
+//         res.send(JSON.stringify(user));
+//     });
 });
 // create a new user
 router.post('/create', function(req, res) {
