@@ -19,8 +19,6 @@ router.get('/', function(req, res, next) {
             delete user.salt;
         }
         res.send(JSON.stringify(user));
-    }).catch(function(e) {
-        res.status(500).send(JSON.stringify(e));
     });
 });
 // create a new user
